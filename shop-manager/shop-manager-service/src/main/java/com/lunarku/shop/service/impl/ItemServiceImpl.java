@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lunarku.shop.mapper.TbItemMapper;
+import com.lunarku.shop.pojo.EasyUIDataResult;
 import com.lunarku.shop.pojo.TbItem;
 import com.lunarku.shop.service.ItemService;
 
@@ -20,6 +21,12 @@ public class ItemServiceImpl implements ItemService{
 	public TbItem getItemById(long itemId) {
 		TbItem ibItem = itemMapper.selectByPrimaryKey(itemId);
 		return ibItem;
+	}
+
+
+	public EasyUIDataResult getItemList(int page, int rows) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
