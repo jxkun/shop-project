@@ -30,8 +30,8 @@
   	<include refid="Base_Column_List"></include>
   	from tb_content_category
   	<where>
-  		<if test="id != null">id = #{id}</if>
-  		<if test="category_id != null">category_id = #{categoryId}</if>
+  		<if test="id != null">id = #{id, jdbcType=BIGINT}</if>
+  		<if test="categoryId != null">category_id = #{categoryId,jdbcType=BIGINT}</if>
   	</where>
   </select>
   
@@ -46,12 +46,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_content
     where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.lunarku.shop.pojo.TbContentExample" >
-    delete from tb_content
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbContent" >

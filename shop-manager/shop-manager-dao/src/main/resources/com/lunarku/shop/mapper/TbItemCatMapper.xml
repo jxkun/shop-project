@@ -16,6 +16,17 @@
     id, parent_id, name, status, sort_order, is_parent, created, updated
   </sql>
   
+  <select id="selectByRecord" parameterType="com.lunarku.shop.pojo.TbItemCat" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from tb_item_cat
+  	<where>
+		<if test="id != null"> id = #{id,jdbcType=BIGINT}</if> 
+		<if test="parentId != null">and parent_id = #{parentId, jdbcType=BIGINT}</if> 	
+  		<if test="name != null">and name = #{name, jdbcType=VARCHAR}</if>
+  	</where>
+  </select>
+  
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbItemCat" >
     insert into tb_item_cat (id, parent_id, name, 
       status, sort_order, is_parent, 

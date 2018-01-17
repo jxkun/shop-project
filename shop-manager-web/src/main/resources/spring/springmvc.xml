@@ -25,5 +25,6 @@
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="shop-manager-web"/>
 	<dubbo:registry protocol="zookeeper" address="192.168.213.128:2181"/>	
-	<dubbo:reference interface="com.lunarku.shop.service.ItemService" id="itemService" check="false"/>
+	<dubbo:reference interface="com.lunarku.shop.service.ItemService" id="itemService" />
+	<dubbo:reference interface="com.lunarku.shop.service.ItemCatService" id="itemCatService"></dubbo:reference>
 </beans>      
