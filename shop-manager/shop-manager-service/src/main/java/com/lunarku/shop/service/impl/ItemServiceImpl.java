@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService{
 		// 设置分页信息，参数：查询的页数，每页显示的记录数
 		PageHelper.startPage(page, rows);
 		// 查询
-		List<TbItem> list =  itemMapper.selectByItem(null);
+		List<TbItem> list =  itemMapper.selectByRecord(null);
 		// 获取分页信息
 		PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(list);
 		// 创建查询返回结果对象

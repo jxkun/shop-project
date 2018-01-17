@@ -22,7 +22,7 @@ public class PageHelperTest {
 		// 执行查询之前配置分页条件
 		PageHelper.startPage(1, 10);
 		//执行查询
-		List<TbItem>list = itemMapper.selectByItem(null);
+		List<TbItem>list = itemMapper.selectByRecord(null);
 		PageInfo pageInfo = new PageInfo(list);
 		System.out.println(pageInfo.getTotal());
 		for(TbItem item: list) {
