@@ -24,6 +24,11 @@
     	<artifactId>shop-manager-interface</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.lunarku</groupId>
+    	<artifactId>shop-common</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   	
   	<!-- Spring -->
 	<dependency>

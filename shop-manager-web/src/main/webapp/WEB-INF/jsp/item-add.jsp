@@ -68,11 +68,11 @@
 	//页面初始化完毕后执行此方法
 	$(function(){
 		//创建富文本编辑器
-		itemAddEditor = SHOP.createEditor("#itemAddForm [name=desc]");
+		itemAddEditor = TAOTAO.createEditor("#itemAddForm [name=desc]");
 		//初始化类目选择和图片上传器
-		SHOP.init({fun:function(node){
+		TAOTAO.init({fun:function(node){
 			//根据商品的分类id取商品 的规格模板，生成规格信息。第四天内容。
-			//SHOP.changeItemParam(node, "itemAddForm");
+			//TAOTAO.changeItemParam(node, "itemAddForm");
 		}});
 	});
 	//提交表单
