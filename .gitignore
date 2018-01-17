@@ -36,4 +36,5 @@ buildNumber.properties
 .metadata
 .recommenders
 RemoteSystemsTempFiles
+logs
 

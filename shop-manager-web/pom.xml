@@ -9,11 +9,6 @@
   <packaging>war</packaging>
   
   <dependencies>
-	 <!--  <dependency>
-	  	<groupId>com.lunarku</groupId>
-	    <artifactId>shop-manager-service</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-	  </dependency> -->
 	  <dependency>
 	  	<groupId>com.lunarku</groupId>
 	    <artifactId>shop-manager-interface</artifactId>
@@ -23,6 +18,11 @@
 	  	<groupId>com.lunarku</groupId>
 	    <artifactId>shop-common</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
+	  
+	  <dependency>
+	  	<groupId>com.github.pagehelper</groupId>
+		<artifactId>pagehelper</artifactId>
 	  </dependency>
 	  
 	  <!-- Spring -->
