@@ -183,6 +183,12 @@
 				<artifactId>commons-fileupload</artifactId>
 				<version>${commons-fileupload.version}</version>
 			</dependency>
+			<!-- 添加fastdfs_client客户端引用 -->
+			<dependency>
+				<groupId>fastdfs_client</groupId>
+				  <artifactId>fastdfs_client</artifactId>
+				 <version>1.25</version>
+			 </dependency>
 			<!-- Redis客户端 -->
 			<dependency>
 				<groupId>redis.clients</groupId>
@@ -221,7 +227,6 @@
 				<artifactId>freemarker</artifactId>
 				<version>${freemarker.version}</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 

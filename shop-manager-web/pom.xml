@@ -20,12 +20,7 @@
 	    <version>0.0.1-SNAPSHOT</version>
 	  </dependency>
 	  
-	  <dependency>
-	  	<groupId>com.github.pagehelper</groupId>
-		<artifactId>pagehelper</artifactId>
-	  </dependency>
-	  
-	  <!-- Spring -->
+	    <!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -92,20 +87,33 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
-	  
-  </dependencies>
-  
-  <build>
-  	<plugins>
-  		<plugin>
-			<groupId>org.apache.tomcat.maven</groupId>
-			<artifactId>tomcat7-maven-plugin</artifactId>
-			<configuration>
-				<path>/</path>
-				<port>8081</port>
-			</configuration>
-  		</plugin>
-  	</plugins>
-  </build>
-  
+		<!-- 添加FastDFS客户端的引用 -->
+		<dependency>
+			<groupId>fastdfs_client</groupId>
+			<artifactId>fastdfs_client</artifactId>
+			<version>1.25</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<!-- 文件上传组件 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<path>/</path>
+					<port>8081</port>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

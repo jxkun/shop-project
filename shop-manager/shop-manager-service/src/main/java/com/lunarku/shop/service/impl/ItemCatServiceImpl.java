@@ -26,7 +26,7 @@ public class ItemCatServiceImpl implements ItemCatService {
 		for(TbItemCat cat : lists) {
 			EasyUITreeNode treeNode = new EasyUITreeNode();
 			treeNode.setId(cat.getId());
-			treeNode.setState(cat.getIsParent() ? "close":"open");
+			treeNode.setState(cat.getIsParent() ? "closed":"open");
 			treeNode.setText(cat.getName());
 			easyUITreeNodeList.add(treeNode);
 		}
