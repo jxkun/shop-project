@@ -21,9 +21,9 @@
   	<include refid="Base_Column_List"></include>
   	from tb_content_category
   	<where>
-  		<if test="id != null">id = #{id}</if>
-  		<if test="parent_id != null">parent_id != #{parentId}</if>
-  		<if test="name != null">name=#{name}</if>
+  		<if test="id != null">id = #{id,jdbcType=BIGINT}</if>
+  		<if test="parentId != null">parent_id = #{parentId,jdbcType=BIGINT}</if>
+  		<if test="name != null">name=#{name,jdbcType=VARCHAR}</if>
   	</where>
   </select>
 
@@ -40,6 +40,9 @@
   </delete>
   
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbContentCategory" >
+  	<selectKey keyProperty="id" resultType="long" order="AFTER" keyColumn="id">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
     insert into tb_content_category (id, parent_id, name, 
       status, sort_order, is_parent, 
       created, updated)
@@ -49,11 +52,11 @@
   </insert>
   
   <insert id="insertSelective" parameterType="com.lunarku.shop.pojo.TbContentCategory" >
+  	<selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">
+  		SELECT LAST_INSERT_ID()
+  	</selectKey>
     insert into tb_content_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="parentId != null" >
         parent_id,
       </if>
@@ -77,9 +80,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=BIGINT},
       </if>

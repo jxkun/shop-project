@@ -22,6 +22,8 @@
   			<configuration>
   				<path>/</path>
   				<port>8080</port>
+  				<!-- 支持热部署 -->
+  	 			<contextReloadable>true</contextReloadable>
   			</configuration>
   		</plugin>
   	</plugins>

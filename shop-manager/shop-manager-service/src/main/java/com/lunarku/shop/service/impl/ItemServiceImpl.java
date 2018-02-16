@@ -1,5 +1,6 @@
 package com.lunarku.shop.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,12 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lunarku.shop.common.pojo.EasyUIDataResult;
+import com.lunarku.shop.common.util.IDUtil;
+import com.lunarku.shop.common.util.ResponseResult;
+import com.lunarku.shop.mapper.TbItemDescMapper;
 import com.lunarku.shop.mapper.TbItemMapper;
 import com.lunarku.shop.pojo.TbItem;
+import com.lunarku.shop.pojo.TbItemDesc;
 import com.lunarku.shop.service.ItemService;
 
 /**
@@ -20,12 +25,15 @@ public class ItemServiceImpl implements ItemService{
 
 	@Autowired
 	private TbItemMapper itemMapper;
+	@Autowired
+	private TbItemDescMapper itemDescMapper;
 	
 	@Override
 	public TbItem getItemById(long itemId) {
 		TbItem ibItem = itemMapper.selectByPrimaryKey(itemId);
 		return ibItem;
 	}
+	
 	@Override
 	public EasyUIDataResult getItemList(int page, int rows) {
 		// 设置分页信息，参数：查询的页数，每页显示的记录数
@@ -40,4 +48,51 @@ public class ItemServiceImpl implements ItemService{
 		result.setRows(list);
 		return result;
 	}
+
+	public ResponseResult addItem(TbItem item, String desc) {
+		long itemId = IDUtil.getItemId();
+		item.setId(itemId);
+		// 商品状态  1-正常； 2-下架； 3-删除
+		item.setStatus((byte) 1);
+		Date date = new Date();
+		item.setCreated(date);
+		item.setUpdated(date);
+		//添加item
+		itemMapper.insert(item);
+		
+		// 添加 itemDesc
+		TbItemDesc itemDesc = new TbItemDesc();
+		itemDesc.setItemId(itemId);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreated(date);
+		itemDesc.setUpdated(date);
+		itemDescMapper.insert(itemDesc);
+		
+		return ResponseResult.ok();
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public boolean deleteByIds(Long[] ids) {
+		itemMapper.deleteByIds(ids);
+		itemDescMapper.deleteByIds(ids);
+		return true;
+	}
+
+	/**
+	 * 批量上下架
+	 */
+	@Override
+	public boolean setStatus(Long[] ids, byte status) {
+		itemMapper.setStatus(ids, status);
+		return true;
+	}
+
+	@Override
+	public boolean updateItem(TbItem item) {
+		itemMapper.updateByPrimaryKey(item);
+		return true;
+	}	
 }

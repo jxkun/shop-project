@@ -19,6 +19,16 @@
 	    <artifactId>shop-common</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
 	  </dependency>
+	   <dependency>
+	  	<groupId>com.lunarku</groupId>
+	    <artifactId>shop-content-interface</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>com.lunarku</groupId>
+	    <artifactId>shop-search-interface</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
 	  
 	    <!-- Spring -->
 		<dependency>
@@ -112,6 +122,8 @@
 				<configuration>
 					<path>/</path>
 					<port>8081</port>
+					<!-- 支持热部署 -->
+  	 				<contextReloadable>true</contextReloadable>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -27,8 +27,10 @@
   
   <select id="selectByRecord" parameterType="com.lunarku.shop.pojo.TbContent" resultMap="BaseResultMap">
   	select 
-  	<include refid="Base_Column_List"></include>
-  	from tb_content_category
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+  	from tb_content
   	<where>
   		<if test="id != null">id = #{id, jdbcType=BIGINT}</if>
   		<if test="categoryId != null">category_id = #{categoryId,jdbcType=BIGINT}</if>
@@ -48,18 +50,26 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   
+  <delete id="deleteContents">
+  	 delete from tb_content
+  	 where id in
+  	 <foreach collection="ids" item="item" open="(" close=")" separator=",">
+  	 	#{item,jdbcType=BIGINT}
+  	 </foreach>
+  </delete>
+  
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbContent" >
-    insert into tb_content (id, category_id, title, 
+    insert into tb_content (category_id, title, 
       sub_title, title_desc, url, 
       pic, pic2, created, 
       updated, content)
-    values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+    values (#{categoryId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
       #{subTitle,jdbcType=VARCHAR}, #{titleDesc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{pic,jdbcType=VARCHAR}, #{pic2,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
       #{updated,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   
-  <insert id="insertSelective" parameterType="com.lunarku.shop.pojo.TbContent" >
+  <insert id="insertSelective" parameterType="com.lunarku.shop.pojo.TbContent" >             
     insert into tb_content
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -32,6 +32,23 @@
 	delete from tb_item where id = #{id,jdbcType=BIGINT} 
   </delete>
   
+  <!-- 单一参数，Collection为 list或者array -->
+  <delete id="deleteByIds">
+  	delete from tb_item where id in 
+  	<foreach collection="ids" item="item" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </delete>
+  
+  <!-- 多个参数，传入集合名 -->
+  <update id="setStatus">
+  	update tb_item set status = #{status}
+  	where id in 
+  	<foreach collection="ids" item="item" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
+  </update>
+  
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbItem">
   	insert into tb_item (id, title, sell_point, 
 	  	price, num, barcode, 

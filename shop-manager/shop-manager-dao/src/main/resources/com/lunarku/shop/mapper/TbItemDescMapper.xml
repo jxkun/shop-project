@@ -26,9 +26,30 @@
     where item_id = #{itemId,jdbcType=BIGINT}
   </select>
   
+<!--   <select id="selectByRecord" resultMap="ResultMapWithBLOBs" parameterType="ResultMapWithBLOBs">
+  	select
+  	<include refid="Base_Column_List"/>
+  	,
+  	<include refid="Blob_Column_List"/>
+  	from tb_item_desc
+  	<where>
+  		<if test="item_id != null">and item_id = #{itemId}</if>
+  		<if test="created != null">and created &gt; #{created}</if>
+  		<if test="updated != null">and updated &lt; #{updated}</if>
+  	</where>
+  </select>
+ -->  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_item_desc
     where item_id = #{itemId,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteByIds">
+  	 delete from tb_item_desc 
+  	 where item_id in
+  	 <foreach collection="ids" item="item" open="(" separator="," close=")">
+  	 	#{item}
+  	 </foreach>
   </delete>
   
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbItemDesc" >

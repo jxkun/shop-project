@@ -30,6 +30,10 @@
     	<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   	
+  	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+	</dependency>
   	<!-- Spring -->
 	<dependency>
 		<groupId>org.springframework</groupId>

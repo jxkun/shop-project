@@ -21,7 +21,7 @@ public class PictureController {
 	@RequestMapping("/pic/upload")
 	@ResponseBody
 	@SuppressWarnings("all")
-	public Stirng fileUpload(MultipartFile uploadFile) {
+	public String fileUpload(MultipartFile uploadFile) {
 		Map map = new HashMap();
 		try {
 			// 获取文件扩展名

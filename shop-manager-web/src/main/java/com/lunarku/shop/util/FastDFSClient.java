@@ -18,10 +18,12 @@ public class FastDFSClient {
 		if(conf_filename.contains("classpath:")) {
 			conf_filename = conf_filename.replace("classpath:", this.getClass().getResource("/").getPath());
 		}
+		// 加载配置文件
 		ClientGlobal.init(conf_filename);
 		trackerClient = new TrackerClient();
 		trackerServer = trackerClient.getConnection();
 		storageServer = null;
+		// 创建StorageClient对象
 		storageClient = new StorageClient(trackerServer, storageServer);
 	}
 	
@@ -34,6 +36,7 @@ public class FastDFSClient {
 	 * @throws Exception
 	 */
 	public String uploadFile(String fileName, String extName, NameValuePair[] metas) throws Exception {
+		// 上传文件，返回一个长度为2的数组，第一个元素为组名，第二个元素为相对于组的图片路径
 		String[] list = storageClient.upload_file(fileName, extName, metas);
 		String result = list[0] + "/" + list[1];
 		return result;

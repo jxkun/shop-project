@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- 
+	<context:annotation-config /> 
+	applicationContext-service。xml 中配置的 context:component-scan 会开启全局的注解扫描，效果与<context:annotation-config />等同，这里配与不配置都没有影响。
+	-->
+	<!-- <context:property-placeholder location="classpath:properties/redis.properties" />  
+	配置多个 context:property-placeholder会产生冲突 
+	-->
+	
+	<!-- redis 单机版 -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg name="host" value="${jedis.host}"/>
+		<constructor-arg name="port" value="${jedis.port}" />
+		<!-- <constructor-arg name="password" value="${auth}" /> -->
+	</bean>
+	<bean id="jedisClientPool" class="com.lunarku.content.redis.JedisClientPool" />
+	<!-- reids 集群 -->
+	<!-- <bean id="jedisCluter" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port1}">
+				</bean>			
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port2}">
+				</bean>			
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port3}">
+				</bean>			
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port4}">
+				</bean>			
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port5}">
+				</bean>			
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="${jedis.cluster.host}" />
+					<constructor-arg name="port" value="${jedis.cluster.port6}">
+				</bean>			
+			</set>
+		</constructor-arg>
+		//<constructor-arg name="password" value="${auth}"/>
+	</bean>
+	<bean id="jedisClientCluster" class="com.lunarku.content.redis.JedisClientCluster" /> -->
+	
+	
+</beans>
