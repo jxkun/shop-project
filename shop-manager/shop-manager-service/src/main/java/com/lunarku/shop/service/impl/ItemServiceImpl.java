@@ -3,18 +3,31 @@ package com.lunarku.shop.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lunarku.shop.common.pojo.EasyUIDataResult;
 import com.lunarku.shop.common.util.IDUtil;
+import com.lunarku.shop.common.util.JsonUtils;
 import com.lunarku.shop.common.util.ResponseResult;
 import com.lunarku.shop.mapper.TbItemDescMapper;
 import com.lunarku.shop.mapper.TbItemMapper;
 import com.lunarku.shop.pojo.TbItem;
 import com.lunarku.shop.pojo.TbItemDesc;
+import com.lunarku.shop.redis.JedisClient;
 import com.lunarku.shop.service.ItemService;
 
 /**
@@ -27,10 +40,43 @@ public class ItemServiceImpl implements ItemService{
 	private TbItemMapper itemMapper;
 	@Autowired
 	private TbItemDescMapper itemDescMapper;
+	@Autowired
+	private JmsTemplate jmsTemplate;
+	
+	@Resource(name="itemTopic")
+	private Destination destination;
+	
+	@Autowired
+	private JedisClient jedisClient;
+	/** item缓存前缀*/
+	@Value("${ITEM_INFO}")
+	private String ITEM_INFO;
+	/** 过期时间，默认一天*/
+	@Value("${TIEM_EXPIRE}")
+	private Integer TIEM_EXPIRE;
+	
 	
 	@Override
 	public TbItem getItemById(long itemId) {
+		String key = ITEM_INFO + ":" + itemId + "ITEM";
+		// 查询前先查缓存,缓存不能影响正常逻辑
+		try {
+			String json = jedisClient.get(key);
+			if(StringUtils.isNotBlank(json)) {
+				TbItem item = JsonUtils.jsonToPojo(json, TbItem.class);
+				return item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		TbItem ibItem = itemMapper.selectByPrimaryKey(itemId);
+		// 查询后,设置缓存
+		try {
+			jedisClient.set(key, JsonUtils.objectToJson(ibItem));
+			jedisClient.expire(key, TIEM_EXPIRE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return ibItem;
 	}
 	
@@ -68,6 +114,15 @@ public class ItemServiceImpl implements ItemService{
 		itemDesc.setUpdated(date);
 		itemDescMapper.insert(itemDesc);
 		
+		jmsTemplate.send(destination, new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				TextMessage textMessage = session.createTextMessage();
+				textMessage.setText(itemId + "");
+				return textMessage;
+			}
+		});
+		// 返回结果
 		return ResponseResult.ok();
 	}
 

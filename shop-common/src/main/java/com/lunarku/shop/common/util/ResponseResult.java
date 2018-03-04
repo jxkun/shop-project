@@ -24,6 +24,9 @@ public class ResponseResult implements Serializable{
 	public static ResponseResult build(Integer status, String msg, Object data) {
 		return new ResponseResult(status, msg, data);
 	}
+	public static ResponseResult build(Integer status, String msg) {
+		return new ResponseResult(status, msg, null);
+	}
 	
 	public static ResponseResult ok(Object data) {
 		return new ResponseResult(data);

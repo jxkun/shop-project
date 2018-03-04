@@ -1,7 +1,5 @@
 package com.lunarku.content.redis;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
 public interface JedisClient {
 
 	String set(String key, String value);

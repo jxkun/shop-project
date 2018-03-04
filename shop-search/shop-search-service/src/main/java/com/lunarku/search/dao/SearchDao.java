@@ -35,14 +35,14 @@ public class SearchDao {
 		SearchResult result = new SearchResult();
 		result.setRecordCount(numFound);
 		List<SearchItem> itemList = new ArrayList<>();
-		//封装查询结果到SearchItem对象中
+		//封装查询结果到 对象中
 		for(SolrDocument solrDocument : solrDocumentList) {
 			SearchItem item = new SearchItem();
 			item.setCategory_name((String)solrDocument.get("item_category_name"));
 			item.setId((String)solrDocument.get("id"));
-			item.setImage((String)solrDocument.get("item_image"));
+			// item.setImage((String)solrDocument.get("item_image"));
 			//取一张图片
-			String image = (String)solrDocument.get("image");
+			String image = (String)solrDocument.get("item_image");
 			if(StringUtils.isNotBlank(image)) {
 				image = image.split(",")[0];
 			}

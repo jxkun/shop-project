@@ -24,7 +24,6 @@ public class SearchController {
 			@RequestParam(name="q")String queryString,
 			@RequestParam(defaultValue="1")Integer page,
 			Model model) throws Exception{
-	
 		// 查询条件转码，解决getz乱码问题
 		queryString = new String(queryString.getBytes("iso8859-1"), "utf-8");
 		SearchResult searchResult = searchService.search(queryString, page, SEARCH_RESULT_ROWS);

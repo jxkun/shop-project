@@ -10,7 +10,7 @@
 
 	<!-- 
 	<context:annotation-config /> 
-	applicationContext-service。xml 中配置的 context:component-scan 会开启全局的注解扫描，效果与<context:annotation-config />等同，这里配与不配置都没有影响。
+	applicationContext-service.xml 中配置的 context:component-scan 会开启全局的注解扫描，效果与<context:annotation-config />等同，这里配与不配置都没有影响。
 	-->
 	<!-- <context:property-placeholder location="classpath:properties/redis.properties" />  
 	配置多个 context:property-placeholder会产生冲突 
@@ -20,7 +20,6 @@
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
 		<constructor-arg name="host" value="${jedis.host}"/>
 		<constructor-arg name="port" value="${jedis.port}" />
-		<!-- <constructor-arg name="password" value="${auth}" /> -->
 	</bean>
 	<bean id="jedisClientPool" class="com.lunarku.content.redis.JedisClientPool" />
 	<!-- reids 集群 -->
@@ -53,7 +52,6 @@
 				</bean>			
 			</set>
 		</constructor-arg>
-		//<constructor-arg name="password" value="${auth}"/>
 	</bean>
 	<bean id="jedisClientCluster" class="com.lunarku.content.redis.JedisClientCluster" /> -->
 	

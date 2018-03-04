@@ -1,7 +1,5 @@
 package com.lunarku.shop.service;
 
-import java.util.List;
-
 import com.lunarku.shop.common.pojo.EasyUIDataResult;
 import com.lunarku.shop.common.util.ResponseResult;
 import com.lunarku.shop.pojo.TbItem;

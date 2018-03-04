@@ -11,6 +11,9 @@
 
 	<context:property-placeholder location="classpath:resource/resource.properties"/>
 
+	<!-- 全局异常处理器 -->
+	<bean id="globalExceptionResolve" class="com.lunarku.search.exception.GlobalExceptionResolve" />
+
 	<!-- 配置注解驱动 -->
 	<mvc:annotation-driven />
 	<!-- 视图解析器 -->

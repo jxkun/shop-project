@@ -15,21 +15,39 @@
     id, username, password, phone, email, created, updated
   </sql>
   
+  <select id="selectByRecord" parameterType="com.lunarku.shop.pojo.TbUser" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from tb_user
+  	<where>
+  		<if test="username != null">and username=#{username,jdbcType=VARCHAR}</if>
+  		<if test="password != null">and password=#{password,jdbcType=VARCHAR}</if>
+  		<if test="phone != null">and phone=#{phone,jdbcType=VARCHAR}</if>
+  		<if test="email != null">and email=#{email,jdbcType=VARCHAR}</if>
+  	</where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
   
   <insert id="insert" parameterType="com.lunarku.shop.pojo.TbUser" >
-    insert into tb_user (id, username, password, 
+    <selectKey keyColumn="id" keyProperty="id" resultType="long">
+    	SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_user (username, password, 
       phone, email, created, 
       updated)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
       #{updated,jdbcType=TIMESTAMP})
   </insert>
   
   <insert id="insertSelective" parameterType="com.lunarku.shop.pojo.TbUser" >
+    <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="long">
+    	SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
