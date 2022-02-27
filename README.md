@@ -1,3 +1,3 @@
 # shop-project
-商城网站
+练手Demo-商城网站
 
